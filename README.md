@@ -1,445 +1,402 @@
-# 🚗 DriveWay — Car Rental Booking System
+# 🚗 DriveWay — Full-Stack Car Rental Booking Platform
 
-A production-ready full-stack car rental platform built with React, Node.js, Express, and MongoDB.
+<p align="center">
+
+A modern full-stack car rental booking platform built with **React**, **Node.js**, **Express**, and **MongoDB**.
+
+Designed with scalability, security, and maintainability in mind while following modern full-stack development best practices.
+
+</p>
 
 ---
 
-## 📁 Project Structure
+## 📖 Overview
 
+DriveWay is a production-ready car rental management platform that allows users to browse available vehicles, reserve cars, manage bookings, and securely authenticate using JWT.
+
+The platform also includes an admin dashboard for managing cars, users, and reservations while providing system-wide statistics.
+
+---
+
+# ✨ Features
+
+## 👤 Authentication
+
+* User Registration
+* Secure Login
+* JWT Authentication
+* Email Verification
+* Protected Routes
+* Persistent Authentication
+* Role-Based Authorization (User / Admin)
+
+---
+
+## 🚗 Car Management
+
+* Browse Available Cars
+* Search Cars
+* Filter by Category
+* Car Details Page
+* Availability Status
+* Dynamic Pricing
+* Admin CRUD Operations
+
+---
+
+## 📅 Booking System
+
+* Book Available Cars
+* Automatic Total Price Calculation
+* Prevent Double Booking
+* Booking History
+* Booking Status Updates
+* Booking Cancellation
+
+---
+
+## 📊 Admin Dashboard
+
+* Manage Cars
+* Manage Bookings
+* View Statistics
+* Revenue Tracking
+* User Management
+* Booking Monitoring
+
+---
+
+## 🤖 Additional Features
+
+* Responsive Design
+* REST API
+* Chatbot Integration
+* Global Error Handling
+* Secure Password Hashing
+* Input Validation
+* Axios Interceptors
+* Authentication Persistence
+
+---
+
+# 🛠 Tech Stack
+
+## Frontend
+
+* React
+* Vite
+* React Router DOM
+* Axios
+* Context API
+* CSS
+
+---
+
+## Backend
+
+* Node.js
+* Express.js
+* MongoDB
+* Mongoose
+* JWT
+* bcrypt
+* Express Validator
+
+---
+
+## Development Tools
+
+* Git
+* GitHub
+* Postman
+* VS Code
+
+---
+
+# 🏗 System Architecture
+
+```text
+                     React Frontend
+                           │
+                           │ HTTP Requests
+                           ▼
+                    Express REST API
+                           │
+        ┌──────────────────┴──────────────────┐
+        │                                     │
+ Authentication                      Booking Logic
+        │                                     │
+        └──────────────────┬──────────────────┘
+                           │
+                      MongoDB Database
 ```
-car-rental/
-├── backend/
-│   ├── config/
-│   │   └── db.js                  # MongoDB connection
-│   ├── controllers/
-│   │   ├── authController.js      # Register, login, getMe
-│   │   ├── carController.js       # CRUD for cars
-│   │   └── bookingController.js   # Booking logic + overlap detection
-│   │   └── ChatController.js   
-│   ├── middleware/
-│   │   ├── auth.js                # protect + restrictTo(role)
-│   │   ├── errorHandler.js        # Global error handler + notFound
-│   │   └── validate.js            # express-validator middleware
-│   ├── models/
-│   │   ├── User.js                # User schema (bcrypt hash)
-│   │   ├── Car.js                 # Car schema
-│   │   └── Booking.js             # Booking schema (overlap index)
-│   ├── routes/
-│   │   ├── authRoutes.js
-│   │   ├── carRoutes.js
-│   │   └── bookingRoutes.js
-│   │   └── chatRoutes.js
-│   ├── utils/
-│   │   ├── generateToken.js       # JWT token generator
-│   │   ├── emailService.js
-│   │   └── seed.js                # Database seeder
-│   ├── server.js                  # Express app entry point
-│   ├── .env.example
+
+---
+
+# 📂 Project Structure
+
+```text
+DriveWay
+│
+├── backend
+│   ├── config
+│   ├── controllers
+│   ├── middleware
+│   ├── models
+│   ├── routes
+│   ├── utils
+│   ├── server.js
 │   └── package.json
 │
-└── frontend/
-    ├── src/
-    │   ├── components/
-    │   │   ├── common/
-    │   │   │   ├── ProtectedRoute.jsx
-    │   │   │   └── Spinner.jsx
-    │   │   │   └── Chatbot.jsx
-    │   │   └── car/
-    │   │       └── CarCard.jsx
-    │   ├── context/
-    │   │   └── AuthContext.jsx    # JWT auth state + localStorage sync
-    │   ├── hooks/
-    │   │   └── useApi.js          # Generic async hook
-    │   ├── layouts/
-    │   │   └── MainLayout.jsx     # Navbar + footer wrapper
-    │   ├── pages/
-    │   │   ├── HomePage.jsx       # Car listing + filters
-    │   │   ├── CarDetailPage.jsx  # Single car view
-    │   │   ├── BookingPage.jsx    # Date selection + price calc
-    │   │   ├── MyBookingsPage.jsx # User booking history
-    │   │   ├── LoginPage.jsx
-    │   │   ├── RegisterPage.jsx
-    │   │   └── AdminDashboard.jsx # Stats + bookings + car CRUD
-    │   │   └── VerifyEmailPage.jsx
-    │   ├── services/
-    │   │   ├── api.js             # Axios instance + interceptors
-    │   │   ├── authService.js
-    │   │   ├── carService.js
-    │   │   └── bookingService.js
-    │   ├── App.jsx                # Router config + protected routes
-    │   ├── main.jsx
-    │   └── index.css
-    ├── index.html
-    ├── vite.config.js
-    └── package.json
-    └── package-lock.json
-    └── postcss.config.js
-    └── postcss.config.js
+├── frontend
+│   ├── public
+│   ├── src
+│   │   ├── components
+│   │   ├── pages
+│   │   ├── services
+│   │   ├── context
+│   │   ├── layouts
+│   │   └── hooks
+│   ├── package.json
+│   └── vite.config.js
+│
+└── README.md
 ```
 
 ---
 
-## ⚡ Quick Start
+# 🔒 Authentication Flow
 
-### Prerequisites
-- Node.js >= 18
-- MongoDB (local or Atlas)
+```text
+User Login
+     │
+     ▼
+JWT Token Generated
+     │
+     ▼
+Stored in Local Storage
+     │
+     ▼
+Axios Automatically Sends Token
+     │
+     ▼
+Protected Backend Routes
+```
 
-### 1. Backend Setup
+---
+
+# 🚀 Getting Started
+
+## Clone Repository
+
+```bash
+git clone https://github.com/mohamednasserdev/driveway.git
+
+cd driveway
+```
+
+---
+
+# Backend Setup
 
 ```bash
 cd backend
+
 npm install
-
-# Create your .env file
-cp .env.example .env
-# Edit .env with your MongoDB URI and JWT secret
-
-# Seed the database with sample data
-node utils/seed.js
-
-# Start development server
-npm run dev
 ```
 
-### 2. Frontend Setup
+Create `.env`
+
+```env
+PORT=5000
+
+MONGO_URI=YOUR_MONGODB_URI
+
+JWT_SECRET=YOUR_SECRET_KEY
+
+JWT_EXPIRES_IN=7d
+
+CLIENT_URL=http://localhost:5173
+
+NODE_ENV=development
+```
+
+Run Backend
 
 ```bash
-cd frontend
-npm install
-
-# Create your .env file
-cp .env.example .env
-
-# Start development server
 npm run dev
 ```
-
-### 3. Demo Credentials (after seeding)
-| Role  | Email                    | Password  |
-|-------|--------------------------|-----------|
-| Admin | admin@carrental.com      | admin123  |
-| User  | user@carrental.com       | user1234  |
 
 ---
 
-## 🔐 Environment Variables
+# Frontend Setup
 
-### Backend `.env`
-```env
-PORT=5000
-MONGO_URI=mongodb://localhost:27017/car-rental
-JWT_SECRET=your_super_secret_jwt_key_change_this_in_production
-JWT_EXPIRES_IN=7d
-NODE_ENV=development
-CLIENT_URL=http://localhost:5173
+```bash
+cd frontend
+
+npm install
+
+npm run dev
 ```
 
-### Frontend `.env`
+---
+
+# 🌍 Environment Variables
+
+## Backend
+
+| Variable       | Description        |
+| -------------- | ------------------ |
+| PORT           | Server Port        |
+| MONGO_URI      | MongoDB Connection |
+| JWT_SECRET     | JWT Secret         |
+| JWT_EXPIRES_IN | Token Expiration   |
+| CLIENT_URL     | Frontend URL       |
+| NODE_ENV       | Environment        |
+
+---
+
+## Frontend
+
 ```env
 VITE_API_URL=http://localhost:5000/api
 ```
 
 ---
 
-## 📡 API Documentation
+# 📡 REST API
 
-**Base URL:** `http://localhost:5000/api`
+## Authentication
 
-All protected routes require the header:
-```
-Authorization: Bearer <jwt_token>
-```
-
----
-
-### 🔑 Authentication
-
-#### `POST /auth/register`
-Register a new user account.
-
-**Body:**
-```json
-{
-  "name": "Jane Doe",
-  "email": "jane@example.com",
-  "password": "securepass"
-}
-```
-
-**Response `201`:**
-```json
-{
-  "success": true,
-  "token": "eyJhbG...",
-  "user": { "id": "...", "name": "Jane Doe", "email": "jane@example.com", "role": "user" }
-}
-```
+| Method | Endpoint           |
+| ------ | ------------------ |
+| POST   | /api/auth/register |
+| POST   | /api/auth/login    |
+| GET    | /api/auth/me       |
 
 ---
 
-#### `POST /auth/login`
-Authenticate and receive a JWT token.
+## Cars
 
-**Body:**
-```json
-{
-  "email": "jane@example.com",
-  "password": "securepass"
-}
-```
-
-**Response `200`:**
-```json
-{
-  "success": true,
-  "token": "eyJhbG...",
-  "user": { "id": "...", "name": "Jane Doe", "email": "jane@example.com", "role": "user" }
-}
-```
+| Method | Endpoint      |
+| ------ | ------------- |
+| GET    | /api/cars     |
+| GET    | /api/cars/:id |
+| POST   | /api/cars     |
+| PUT    | /api/cars/:id |
+| DELETE | /api/cars/:id |
 
 ---
 
-#### `GET /auth/me`
-Get the current authenticated user's profile.
+## Bookings
 
-**Auth:** Required
-
-**Response `200`:**
-```json
-{
-  "success": true,
-  "user": { "id": "...", "name": "Jane Doe", "email": "jane@example.com", "role": "user" }
-}
-```
+| Method | Endpoint                 |
+| ------ | ------------------------ |
+| POST   | /api/bookings            |
+| GET    | /api/bookings/my         |
+| GET    | /api/bookings            |
+| PATCH  | /api/bookings/:id/status |
 
 ---
 
-### 🚗 Cars
+# 🛡 Security
 
-#### `GET /cars`
-Get all cars. Supports query params: `?available=true&category=suv`
+* JWT Authentication
+* Password Hashing (bcrypt)
+* Authorization Middleware
+* Role-Based Access Control
+* Express Validator
+* Environment Variables
+* Global Error Handler
+* Duplicate Booking Prevention
+* MongoDB Validation
 
-**Auth:** Public
+---
 
-**Response `200`:**
-```json
-{
-  "success": true,
-  "count": 6,
-  "cars": [
-    {
-      "_id": "...",
-      "name": "Camry XSE",
-      "brand": "Toyota",
-      "pricePerDay": 65,
-      "image": "https://...",
-      "features": ["Bluetooth", "Backup Camera"],
-      "available": true,
-      "category": "standard",
-      "seats": 5,
-      "transmission": "automatic"
-    }
-  ]
-}
+# ⚡ Performance
+
+* Modular Folder Structure
+* Axios Interceptors
+* Optimized MongoDB Queries
+* Compound Indexes
+* Reusable Components
+* Clean Architecture
+
+---
+
+# 🚀 Deployment
+
+Frontend
+
+* Vercel
+
+Backend
+
+* Render
+
+Database
+
+* MongoDB Atlas
+
+---
+
+# 📸 Screenshots
+
+> Add screenshots here.
+
+```
+Home Page
+
+Car Details
+
+Booking Page
+
+Admin Dashboard
+
+Authentication
 ```
 
 ---
 
-#### `GET /cars/:id`
-Get a single car by ID.
+# 📌 Future Improvements
 
-**Auth:** Public
-
----
-
-#### `POST /cars`
-Create a new car listing.
-
-**Auth:** Admin only
-
-**Body:**
-```json
-{
-  "name": "Model S",
-  "brand": "Tesla",
-  "pricePerDay": 150,
-  "image": "https://...",
-  "features": ["Autopilot", "Ludicrous Mode"],
-  "category": "luxury",
-  "seats": 5,
-  "transmission": "automatic",
-  "available": true
-}
-```
+* Online Payments (Stripe)
+* Google Maps Integration
+* Cloudinary Image Upload
+* Email Notifications
+* Wishlist
+* Reviews & Ratings
+* Multi-language Support
+* Dark Mode
+* Real-time Notifications
+* Docker Deployment
 
 ---
 
-#### `PUT /cars/:id`
-Update a car by ID.
+# 👨‍💻 Author
 
-**Auth:** Admin only
+**Mohamed Nasser**
 
----
+GitHub
 
-#### `DELETE /cars/:id`
-Delete a car by ID.
+https://github.com/mohamednasserdev
 
-**Auth:** Admin only
+LinkedIn
 
----
-
-### 📋 Bookings
-
-#### `POST /bookings`
-Create a new booking. The server validates dates, checks for overlaps, and calculates total price.
-
-**Auth:** Required
-
-**Body:**
-```json
-{
-  "carId": "64f...",
-  "startDate": "2026-03-10",
-  "endDate": "2026-03-15",
-  "notes": "Please have GPS ready"
-}
-```
-
-**Response `201`:**
-```json
-{
-  "success": true,
-  "booking": {
-    "_id": "...",
-    "user": { "name": "Jane Doe", "email": "jane@example.com" },
-    "car": { "name": "Camry XSE", "brand": "Toyota" },
-    "startDate": "2026-03-10T00:00:00.000Z",
-    "endDate": "2026-03-15T00:00:00.000Z",
-    "totalPrice": 325,
-    "status": "pending"
-  }
-}
-```
-
-**Error — Overlapping Booking `409`:**
-```json
-{
-  "success": false,
-  "message": "This car is already booked for the selected dates. Please choose different dates."
-}
-```
+https://www.linkedin.com/in/mohamed-nasser-dev
 
 ---
 
-#### `GET /bookings/my`
-Get all bookings for the current authenticated user.
+# ⭐ Show Your Support
 
-**Auth:** Required
+If you like this project, please consider giving it a ⭐ on GitHub.
 
----
-
-#### `GET /bookings`
-Get all bookings (admin view).
-
-**Auth:** Admin only
+It really helps and motivates future improvements.
 
 ---
 
-#### `GET /bookings/admin/stats`
-Get system-wide statistics.
+<p align="center">
 
-**Auth:** Admin only
+Made with ❤️ by Mohamed Nasser
 
-**Response `200`:**
-```json
-{
-  "success": true,
-  "stats": {
-    "totalCars": 6,
-    "totalBookings": 24,
-    "totalUsers": 15,
-    "totalRevenue": 4875,
-    "statusBreakdown": [
-      { "_id": "confirmed", "count": 12 },
-      { "_id": "pending", "count": 5 },
-      { "_id": "cancelled", "count": 4 },
-      { "_id": "completed", "count": 3 }
-    ]
-  }
-}
-```
-
----
-
-#### `PATCH /bookings/:id/status`
-Update a booking's status.
-
-**Auth:** User (cancel own) or Admin (any status)
-
-**Body:**
-```json
-{ "status": "confirmed" }
-```
-
-Valid statuses: `pending`, `confirmed`, `cancelled`, `completed`
-
----
-
-## 🔒 Booking Overlap Detection Logic
-
-The core conflict detection query in `bookingController.js`:
-
-```javascript
-// Two date ranges [A,B] and [C,D] overlap when: A < D AND C < B
-// Equivalently, they DON'T overlap when: A >= D OR C >= B
-
-const conflicting = await Booking.findOne({
-  car: carId,
-  status: { $nin: ['cancelled'] },     // Skip cancelled bookings
-  startDate: { $lt: endDate },          // Existing starts before new ends
-  endDate:   { $gt: startDate },        // Existing ends after new starts
-});
-```
-
-This correctly handles all overlap scenarios:
-- Complete overlap (new booking entirely within existing)
-- Partial overlap on either end
-- Existing booking entirely within new booking
-
----
-
-## 🏗️ Architecture Decisions
-
-| Decision | Rationale |
-|----------|-----------|
-| JWT in localStorage | Simple for SPA; use HttpOnly cookies for higher security in production |
-| `select: false` on password | Passwords are never returned in queries unless explicitly needed |
-| Compound index on Booking | `{ car, startDate, endDate }` makes overlap queries O(log n) |
-| Global error handler | Single source of truth for all error responses |
-| Controller/Route separation | Business logic never lives in route files |
-| Axios interceptors | Token injection and 401 handling in one place |
-
----
-
-## 🚀 Production Deployment Notes
-
-1. **Set `NODE_ENV=production`** — disables Morgan logging and hides stack traces
-2. **Use a strong `JWT_SECRET`** — minimum 32 random characters
-3. **MongoDB Atlas** — use a production cluster with IP allowlisting
-4. **Build frontend:** `npm run build` → serve `dist/` with nginx or Vercel
-5. **CORS** — update `CLIENT_URL` to your production frontend domain
-6. **Rate limiting** is already configured (100 req/15min per IP)
-
----
-
-## 🛡️ Security Features
-
-- ✅ Password hashing with bcrypt (cost factor 12)
-- ✅ JWT authentication with expiry
-- ✅ Role-based access control (user/admin)
-- ✅ Input validation with express-validator
-- ✅ Rate limiting on all `/api` routes
-- ✅ Mongoose schema validation
-- ✅ Duplicate key error handling
-- ✅ Environment variable secrets (never hardcoded)
+</p>
