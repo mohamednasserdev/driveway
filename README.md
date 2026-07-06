@@ -137,7 +137,14 @@ The platform also includes an admin dashboard for managing cars, users, and rese
 
 ```text
 DriveWay
-│
+|
+│── assets/
+│   └── screenshots/
+│       ├── home.png
+│       ├── car-details.png
+│       ├── booking.png
+│       ├── admin-dashboard.png
+│       └── login.png
 ├── backend
 │   ├── config
 │   ├── controllers
