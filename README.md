@@ -1,4 +1,4 @@
-# 🚗 DriveWay — Full-Stack Car Rental Booking Platform
+# DriveWay — Full-Stack Car Rental Booking Platform
 
 <p align="center">
 
@@ -342,19 +342,39 @@ Database
 
 # 📸 Screenshots
 
-> Add screenshots here.
+### Home Page
 
-```
-Home Page
+![Home](assets/screenshots/home.png)
 
-Car Details
+---
 
-Booking Page
+### Car Details
 
-Admin Dashboard
+![Car Details](assets/screenshots/car-details.png)
 
-Authentication
-```
+---
+
+### Booking
+
+![Booking](assets/screenshots/booking.png)
+
+---
+
+### Admin Dashboard
+
+![Dashboard](assets/screenshots/admin-dashboard.png)
+
+---
+
+### Login
+
+![Login](assets/screenshots/login.png)
+
+---
+
+### Chatbot
+
+![Chatbot](assets/screenshots/chatbot.png)
 
 ---
 
